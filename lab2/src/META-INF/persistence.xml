@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="lab2">
+		<class>AAA.Entity.Aaaccesslist</class>
+		<class>AAA.Entity.Aaexceptionlog</class>
+		<class>AAA.Entity.Aapage</class>
+		<class>AAA.Entity.Aapagecat</class>
+		<class>AAA.Entity.Aapagevisit</class>
+		<class>AAA.Entity.Aarole</class>
+		<class>AAA.Entity.Aasession</class>
+		<class>AAA.Entity.Aauser</class>
+		<class>Entity.Charge</class>
+		<class>Entity.ChargePayment</class>
+		<class>Entity.Enduser</class>
+		<class>Entity.Equipment</class>
+		<class>Entity.ExpNew</class>
+		<class>Entity.Expriment</class>
+		<class>Entity.ExprimentEquipment</class>
+		<class>Entity.ExprimentNewEquipment</class>
+		<class>Entity.Labratory</class>
+		<class>Entity.OnlinePayment</class>
+		<class>Entity.Operator</class>
+		<class>Entity.Professor</class>
+		<class>Entity.Resrevation</class>
+		<class>Entity.Student</class>
+	</persistence-unit>
+</persistence>

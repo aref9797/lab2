@@ -1,0 +1,105 @@
+<ui:composition template="../../templates/Panel.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     
+<ui:define name="content">
+
+	 <h:outputStylesheet library="css" name="Mpanel_style.css"></h:outputStylesheet>
+	 <h:outputStylesheet library="css" name="tabel_style.css"></h:outputStylesheet>
+	 
+	 <h:outputScript library="js" name="scroll.js"></h:outputScript>
+	 
+<div id="scroll"> 		
+	<h:form id="frmNew">
+	 	<div class="col-md-2"></div>
+	 	<div class="col-md-8">
+	 		<div class="box">
+	 			<div id="title">
+	 				<b>مدیریت دسته منوها</b>
+	 			</div>
+	 			<div class="contant" >
+	 				<div class="row">
+	 					
+		 				<p:growl id="messages"  showDetail="true" life="4000"/>	
+		 				
+		 				<div class="col-md-6"> 
+		 				
+		 					<b>نام دسته منو  :</b>
+							<br/>
+							<p:inputText id="name" maxlength="99" value="#{PageCatMB.aapagecat.name}" required="true" requiredMessage="فیلد نام دسته منو نباید خالی باشد"></p:inputText>
+							<br/><br/>
+							
+		 				</div>
+		 				
+		 				<div class="col-md-6"> 
+	
+							<b>ترتیب نمایش :</b>
+							<br/>
+							<p:inputMask  maxlength="4" id="orders" value="#{PageCatMB.aapagecat.orders}" requiredMessage="ترتیب نمایش نباید خالی باشد" validatorMessage="فقط یک رقم میتواند باشد">
+								<p:keyFilter regEx="/[0-9_]/i" />
+							</p:inputMask>
+							<br/><br/>
+							
+		 				</div>
+		 				
+		 			</div>
+		 			
+		 			<div class="row padding">
+						<div class="-col-md-12 text-center">
+							<p:commandButton styleClass="ui-buttom-submit" value="ثبت "  update=":frmDT:dtList  frmNew" action="#{PageCatMB.AddEdit()}" />
+						</div>
+					</div>	
+		 			
+	 			</div>
+	 			
+	 		</div>
+	 	</div>			  
+
+</h:form>
+
+<h:form id="frmDT">
+	<div class="row">
+		<DIV class="col-md-12 text-center">
+		
+			<p:growl id="growl" showDetail="true" life="5000"/> 
+	
+	        <p:dataTable dir="rtl" id="dtList" value="#{PageCatMB.aapagecatList}" var="bb" reflow="true">
+	
+	            <p:column headerText="نام دسته منو"  style="text-align: center;width:15%;">
+	                <b>#{bb.name}</b>
+	            </p:column>
+	
+	            <p:column headerText="ترتیب نمایش" style="text-align: center;width:15%;">
+	                <b>#{bb.orders}</b>
+	            </p:column>
+	
+	            <p:column headerText="عملیات" style="text-align: center;width: 10%">
+							 	  
+						<p:commandLink  styleClass="" ajax="true"  update=":frmNew" process="@this" actionListener="#{PageCatMB.setSelectedRow(bb)}">
+								<img class="edit" src="../../resources/images/edit.png"/>
+						</p:commandLink>
+						<p:commandLink  styleClass="" ajax="true"  update="@form :frmNew" process="@this" actionListener="#{PageCatMB.Remove(bb)}" >
+							  	 <img class="delete" src="../../resources/images/delete.png"/>
+							   	 <p:confirm header="تائید حذف رکورد انتخابی" message="آیا از حذف رکورد انتخابی مطمئن هستید؟" icon="ui-icon-alert" />
+						</p:commandLink>
+					 </p:column>				
+				
+	        </p:dataTable>
+	
+	
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" styleClass="bnazaninbold16-red">
+		        <p:commandButton value="بلی" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		        <p:commandButton value="خیر" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		    </p:confirmDialog>
+			
+		</DIV>
+	</div>
+
+</h:form>
+</div>
+
+</ui:define>
+</ui:composition>

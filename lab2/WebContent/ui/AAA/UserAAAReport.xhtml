@@ -1,0 +1,71 @@
+<ui:composition template="../../templates/Panel.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+	
+<ui:define name="content">
+	
+	 <h:outputStylesheet library="css" name="Mpanel_style.css"></h:outputStylesheet>
+	 <h:outputStylesheet library="css" name="tabel_style.css"></h:outputStylesheet>
+	 
+	 <h:outputScript library="js" name="scroll.js"></h:outputScript>
+
+<h:form id="frmNewEdit">	
+	<p:dialog dir="rtl" id="dlgNewEdit" header="گزارش کامل عملیات کاربر" widgetVar="dlgNewEdit" closable="true" width="900" height="850">				  
+		
+		<p:dataTable dir="rtl" id="dtList2" value="#{UserAAAReportMB.FindAllPageVisits()}" var="bb" reflow="true">	
+							
+            <p:column headerText="نام صفحه" style="text-align: center;width:15%;">
+                <b>#{bb.aapage.name}</b>
+            </p:column>
+
+            <p:column headerText="تاریخ ورود" style="text-align: center;width:15%;">
+                <b>#{bb.indate}</b>
+            </p:column>
+
+		</p:dataTable>		
+					
+	</p:dialog>
+</h:form>
+
+
+<h:form id="frmDT">
+	<div class="row">
+		<DIV class="col-md-12 text-center">
+		
+		<b>نام کاربری را وارد کنید :</b>
+		<p:inputText id="username" maxlength="99" value="#{UserAAAReportMB.user.username}" required="true" requiredMessage="فیلد نام کاربری نباید خالی باشد."></p:inputText>
+        
+        <p:commandButton type="submit" value="دریافت گزارش کاربر" action="#{UserAAAReportMB.getUserReport()}" ajax="true" icon="ui-icon-search" update="dtList" process="@form"/>
+
+		<p:messages styleClass="bnazaninbold18-red" id="messages" showDetail="false" autoUpdate="true" closable="true" />
+        
+        <br/><br/>
+     		
+		<p:dataTable dir="rtl" id="dtList" value="#{UserAAAReportMB.FindAllSessions()}" var="bb" reflow="true">	
+				
+            <p:column headerText="تاریخ ورود" style="text-align: center;width:15%;">
+                <b>#{bb.logindate}</b>
+            </p:column>
+
+            <p:column headerText="تاریخ خروج" style="text-align: center;width:15%;">
+                <b>#{bb.logoutdate}</b>
+            </p:column>
+
+            <p:column headerText="گزارش صفحات" style="text-align: center;width:15%;">
+            	<p:commandButton oncomplete="PF('dlgNewEdit').show();" icon="ui-icon-search" type="submit" style="width:80px !important;" 
+            	value="صفحات" ajax="true" update=":frmNewEdit:dlgNewEdit" process="@all" action="#{UserAAAReportMB.setSelectedRow(bb)}"/>
+            </p:column>
+		
+			
+        </p:dataTable>
+		
+		</DIV>
+	</div>	
+
+</h:form>
+
+</ui:define>
+</ui:composition>

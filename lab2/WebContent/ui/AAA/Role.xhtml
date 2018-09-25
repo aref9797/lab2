@@ -1,0 +1,124 @@
+<ui:composition template="../../templates/Panel.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     
+<ui:define name="content">
+	
+	 <h:outputStylesheet library="css" name="Mpanel_style.css"></h:outputStylesheet>
+	 <h:outputStylesheet library="css" name="tabel_style.css"></h:outputStylesheet>
+	 
+	 <h:outputScript library="js" name="scroll.js"></h:outputScript>
+	
+<div id="scroll"> 		
+	<h:form id="frmNew">
+	 	<div class="col-md-2"></div>
+	 	<div class="col-md-8">
+	 		<div class="box">
+	 			<div id="title">
+	 				<b>مدیریت نقش های سیستم</b>
+	 			</div>
+	 			<div class="contant" >
+	 				<div class="row">
+	 					
+		 				<p:growl id="messages"  showDetail="true" life="4000"/>	
+		 				
+		 				<div class="col-md-6"> 
+		 				
+		 					<b>نام نقش  :</b>
+							<br/>
+							<p:inputText id="name" maxlength="99" value="#{RoleMB.role.name}" required="true" requiredMessage="فیلد نام نقش نباید خالی باشد"></p:inputText>
+							<br/><br/>
+							
+							<b>حداکثر کاربر (نامحدود -1)</b>
+							<br/>
+							<p:inputMask dir="ltr" maxlength="10" id="maxuser"  value="#{RoleMB.role.maxuser}" required="true" requiredMessage="حداکثر کاربر نباید خالی باشد" validatorMessage="فقط یک رقم میتواند باشد">
+	            				<p:keyFilter regEx="/[\d\-]/" />
+	           				</p:inputMask>
+							<br/><br/>
+					
+		 				</div>
+		 				
+		 				<div class="col-md-6"> 
+		 					<b>نام انگلیسی نقش  :</b>
+							<br/>
+							<p:inputText id="enname" maxlength="99" value="#{RoleMB.role.enname}" required="true" requiredMessage="فیلد نام نقش نباید خالی باشد"></p:inputText>
+							<br/><br/>
+							
+							<b>شرح نقش  :</b>
+							<br/>
+							<p:inputTextarea id="description" maxlength="299" value="#{RoleMB.role.description}" autoResize="true" ></p:inputTextarea>
+							<br/><br/>
+							
+		 				</div>
+		 				
+		 			</div>
+		 			
+		 			<div class="row padding">
+						<div class="-col-md-12 text-center">
+							<p:commandButton styleClass="ui-buttom-submit" value="ثبت "  update=":frmDT:dtList  frmNew" action="#{RoleMB.AddEdit()}" />
+						</div>
+					</div>	
+		 			
+	 			</div>
+	 			
+	 		</div>
+	 	</div>			  
+
+</h:form>
+
+<h:form id="frmDT">
+	<div class="row">
+		<DIV class="col-md-12 text-center">
+		
+			<p:growl id="growl" showDetail="true" life="5000"/> 
+	
+	        <p:dataTable dir="rtl" id="dtList" value="#{RoleMB.roleList}" var="bb" reflow="true">
+	
+	            <p:column headerText="نام نقش"  style="text-align: center;width:15%;">
+	                <b>#{bb.name}</b>
+	            </p:column>
+	
+	            <p:column headerText="نام انگلیسی نقش" style="text-align: center;width:15%;">
+	                <b>#{bb.enname}</b>
+	            </p:column>
+	
+	            <p:column headerText="حداکثر کاربر" style="text-align: center;width:15%;">
+	                <b>#{(bb.maxuser==-1) ? 'نامحدود' : bb.maxuser}</b>
+	            </p:column>
+	
+	           <!--  <p:column headerText="شرح نقش" style="text-align: center;width:15%;">
+	                <b>#{bb.description}</b>
+	            </p:column> -->
+	
+	
+	            <p:column headerText="عملیات" style="text-align: center;width: 10%">
+							 	  
+						<p:commandLink  styleClass="" ajax="true"  update=":frmNew" process="@this" actionListener="#{RoleMB.setSelectedRow(bb)}">
+								<img class="edit" src="../../resources/images/edit.png"/>
+						</p:commandLink>
+						<p:commandLink  styleClass="" ajax="true"  update="@form :frmNew" process="@this" actionListener="#{RoleMB.Remove(bb)}" >
+							  	 <img class="delete" src="../../resources/images/delete.png"/>
+							   	 <p:confirm header="تائید حذف رکورد انتخابی" message="آیا از حذف رکورد انتخابی مطمئن هستید؟" icon="ui-icon-alert" />
+						</p:commandLink>
+					 </p:column>				
+				
+	        </p:dataTable>
+	
+	
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" styleClass="bnazaninbold16-red">
+		        <p:commandButton value="بلی" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		        <p:commandButton value="خیر" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+		    </p:confirmDialog>
+			
+		</DIV>
+	</div>
+
+</h:form>
+
+</div>
+    
+</ui:define>
+</ui:composition>

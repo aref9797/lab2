@@ -1,0 +1,52 @@
+<ui:composition template="../../templates/Panel.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+
+<ui:define name="content">
+
+	<h:outputStylesheet library="css" name="Mpanel_style.css"></h:outputStylesheet>
+	
+<h:form id="frmNew">
+	 	<div class="col-md-2"></div>
+	 	<div class="col-md-8">
+	 		<div class="box">
+	 			<div id="title">
+	 				<b>تغییر اطلاعات کاربری</b>
+	 			</div>
+	 			<div class="contant" >
+	 				<div class="row">
+	 					<DIV class="col-md-12 text-center">
+	 						 
+	 							<b>شماره تلفن :</b>
+	 							<br/>
+	 							<p:inputMask id="mobile" mask="99999999999" maxlength="11" value="#{ChangeProfileMB.profileUIModel.mobile}" required="true" requiredMessage="فيلد شماره تلفن همراه نبايد خالي باشد"></p:inputMask>
+	 							<br/><br/>
+	 							
+	 							<b>پست الکترونیک :</b>
+	 							<br/>
+	 							
+	 							<p:inputText id="email" value="#{ChangeProfileMB.profileUIModel.email}" validatorMessage="فرمت پست الکترونیک را درست وارد کنید" required="true" requiredMessage="فيلد پست الکترونیک نبايد خالي باشد">
+	 								<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+	 							</p:inputText>
+	 							<br/><br/>
+	 						
+	 						<div class="row padding">
+									<div class="-col-md-12 text-center">
+										<p:commandButton styleClass="ui-buttom-submit" value="تغییر" ajax="false" type="submit" action="#{ChangeProfileMB.ChangeProfile()}" />
+						 			</div>
+						 		</div>		
+		
+	 					</DIV>
+	 				</div>
+	 			</div>
+	 			
+	 		</div>
+	 	</div>
+
+</h:form>
+
+</ui:define>
+</ui:composition>

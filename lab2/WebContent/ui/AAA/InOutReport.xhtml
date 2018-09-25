@@ -1,0 +1,45 @@
+<ui:composition template="../../templates/Panel.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:define id="content" name="content">
+
+	 <h:outputStylesheet library="css" name="Mpanel_style.css"></h:outputStylesheet>
+	 <h:outputStylesheet library="css" name="tabel_style.css"></h:outputStylesheet>
+	 
+	 <h:outputScript library="js" name="scroll.js"></h:outputScript>
+
+<div id="scroll"> 		
+	<h:form id="frmNew" enctype="multipart/form-data">
+	 	<div class="col-md-2"></div>
+	 	<div class="col-md-8">
+	 		<div class="box">
+	 			<div id="title">
+	 				<b>گزارش کامل ورود و خروج</b>
+	 			</div>
+	 			
+		 			<p:growl id="growl" showDetail="true" life="5000"/> 
+			
+					<p:dataTable dir="rtl" id="dtList" value="#{InOutReportMB.FindAllSessions()}" var="bb" reflow="true">
+	      		
+		            <p:column headerText="تاریخ ورود"  style="text-align: center;width:15%;" >
+			                <b>#{bb.logindate}</b>
+			        </p:column>
+		
+		            <p:column headerText="تاریخ خروج"  style="text-align: center;width:15%;" >
+			                <b>#{bb.logoutdate}</b>
+			        </p:column>
+	
+	        		</p:dataTable>
+		 			
+	 		</div>
+	 	</div>
+
+</h:form>
+
+</div>
+
+</ui:define>
+</ui:composition>
